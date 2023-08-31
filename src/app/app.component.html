@@ -1,0 +1,163 @@
+<table class="table align-middle mb-0 bg-white">
+  <thead class="bg-light">
+    <tr>
+      <th>Name</th>
+      <th>Title</th>
+      <th style="text-align: center">Status</th>
+      <th style="text-align: center">Position</th>
+      <th>Actions</th>
+    </tr>
+    <tr>
+      <th>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Name" #name />
+          <span class="input-group-text">@</span>
+          <input type="text" class="form-control" placeholder="Email" #email />
+        </div>
+      </th>
+      <th>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Title" #title />
+          <span class="input-group-text">@</span>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Company"
+            #company
+          />
+        </div>
+      </th>
+      <th>
+        <div class="input-group mb-3">
+          <div class="btn-group">
+            <input
+              mdbRadio
+              type="radio"
+              class="btn-check"
+              name="options1"
+              id="onboarding"
+              autocomplete="off"
+              [checked]="true"
+              (click)="status = 1"
+            />
+            <label class="btn btn-primary" for="onboarding">Onboarding</label>
+            <input
+              mdbRadio
+              type="radio"
+              class="btn-check"
+              name="options1"
+              id="active"
+              autocomplete="off"
+              (click)="status = 2"
+            />
+            <label class="btn btn-success" for="active">Active</label>
+            <input
+              mdbRadio
+              type="radio"
+              class="btn-check"
+              name="options1"
+              id="awaiting"
+              autocomplete="off"
+              (click)="status = 3"
+            />
+            <label class="btn btn-warning" for="awaiting">Awaiting</label>
+          </div>
+        </div>
+      </th>
+      <th>
+        <div class="input-group mb-3">
+          <div class="btn-group">
+            <input
+              mdbRadio
+              type="radio"
+              class="btn-check"
+              name="options2"
+              id="senior"
+              autocomplete="off"
+              [checked]="true"
+              (click)="position = true"
+            />
+            <label class="btn btn-secondary" for="senior">Senior</label>
+            <input
+              mdbRadio
+              type="radio"
+              class="btn-check badge badge-success rounded-pill d-inline"
+              name="options2"
+              id="junior"
+              autocomplete="off"
+              (click)="position = false"
+            />
+            <label class="btn btn-secondary" for="junior">Junior</label>
+          </div>
+        </div>
+      </th>
+      <th>
+        <div class="input-group mb-3">
+          <button
+            type="button"
+            class="btn btn-primary"
+            mdbRipple
+            (click)="
+              onSubmit(name.value, email.value, title.value, company.value)
+            "
+          >
+            Add
+          </button>
+        </div>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of tableData">
+      <td>
+        <div class="d-flex align-items-center">
+          <img
+            [src]="item.avatar"
+            class="rounded-circle"
+            alt="Avatar"
+            style="width: 45px; height: 45px"
+          />
+          <div class="ms-3">
+            <p class="fw-bold mb-1">{{ item.name }}</p>
+            <p class="text-muted mb-0">{{ item.email }}</p>
+          </div>
+        </div>
+      </td>
+      <td>
+        <p class="fw-normal mb-1">{{ item.title }}</p>
+        <p class="text-muted mb-0">{{ item.company }}</p>
+      </td>
+      <td style="text-align: center">
+        <span
+          *ngIf="item.status === 1"
+          class="badge badge-primary rounded-pill d-inline"
+          >Onboarding</span
+        >
+        <span
+          *ngIf="item.status === 2"
+          class="badge badge-success rounded-pill d-inline"
+          >Active</span
+        >
+        <span
+          *ngIf="item.status === 3"
+          class="badge badge-warning rounded-pill d-inline"
+          >Awaiting</span
+        >
+      </td>
+      <td style="text-align: center">
+        {{ item.position ? "senior" : "junior" }}
+      </td>
+      <td>
+        <button
+          type="button"
+          class="btn btn-link btn-rounded btn-sm fw-bold"
+          rippleColor="dark"
+          mdbRipple
+          (click)="onDelete(item.email)"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
